@@ -186,9 +186,8 @@ if ("IntersectionObserver" in window) {
 }
 
 
-
 /* ==========================================
-   REPRODUCTOR DE MÚSICA - VERSIÓN CORREGIDA
+   REPRODUCTOR DE MÚSICA
 ========================================== */
 
 const musicaFondo = document.getElementById("musica-fondo");
@@ -196,25 +195,18 @@ const btnMusica = document.getElementById("btn-musica");
 
 if (musicaFondo && btnMusica) {
 
-  // CONFIGURACIÓN
   musicaFondo.volume = 0.5;
   musicaFondo.loop = true;
 
   let usuarioPauso = false;
   let reproduccionSolicitada = false;
 
-  // ==========================================
-  // ACTUALIZAR BOTÓN MUSICAL
-  // ==========================================
-
+  // ACTUALIZAR ESTADO VISUAL
   function actualizarEstadoMusica() {
 
     const reproduciendo = !musicaFondo.paused;
 
-    btnMusica.classList.toggle(
-      "playing",
-      reproduciendo
-    );
+    btnMusica.classList.toggle("playing", reproduciendo);
 
     btnMusica.setAttribute(
       "aria-pressed",
@@ -223,21 +215,15 @@ if (musicaFondo && btnMusica) {
 
     btnMusica.setAttribute(
       "aria-label",
-      reproduciendo
-        ? "Pausar música"
-        : "Reproducir música"
+      reproduciendo ? "Pausar música" : "Reproducir música"
     );
 
     btnMusica.title = reproduciendo
       ? "Pausar música"
       : "Reproducir música";
-
   }
 
-  // ==========================================
-  // INICIAR MÚSICA
-  // ==========================================
-
+  // REPRODUCCIÓN SEGURA
   async function iniciarMusica() {
 
     if (
@@ -250,66 +236,74 @@ if (musicaFondo && btnMusica) {
 
     reproduccionSolicitada = true;
 
+    // Importante: play() se invoca directamente
+    // desde el evento de interacción.
+    const promesa = musicaFondo.play();
+
     try {
-
-      await musicaFondo.play();
-
+      await promesa;
     } catch (error) {
-
-      console.log(
-        "La reproducción requiere interacción del usuario."
-      );
-
+      console.log("No se pudo iniciar la música:", error);
     } finally {
-
       reproduccionSolicitada = false;
-
     }
-
   }
 
-  // ==========================================
   // CONTROL MANUAL
-  // ==========================================
-
-  async function alternarMusica() {
+  function alternarMusica() {
 
     if (!musicaFondo.paused) {
 
       usuarioPauso = true;
-
       musicaFondo.pause();
 
     } else {
 
       usuarioPauso = false;
+      iniciarMusica();
 
-      try {
+    }
+  }
 
-        await musicaFondo.play();
+  // PRIMERA INTERACCIÓN CON LA LANDING
+  function iniciarConInteraccion(evento) {
 
-      } catch (error) {
+    if (evento.target.closest("#btn-musica")) {
+      return;
+    }
 
-        console.warn(
-          "No se pudo reproducir el audio:",
-          error
-        );
+    if (usuarioPauso || !musicaFondo.paused) {
+      return;
+    }
 
+    iniciarMusica();
+  }
+
+  // Se ejecuta al tocar o hacer clic
+  document.addEventListener(
+    "pointerdown",
+    iniciarConInteraccion
+  );
+
+  // Accesibilidad mediante teclado
+  document.addEventListener(
+    "keydown",
+    (evento) => {
+
+      if (
+        evento.key === "Enter" ||
+        evento.key === " "
+      ) {
+        iniciarConInteraccion(evento);
       }
 
     }
-
-  }
-
-  btnMusica.addEventListener(
-    "click",
-    alternarMusica
   );
 
-  // ==========================================
-  // SINCRONIZACIÓN DEL BOTÓN
-  // ==========================================
+  // BOTÓN MANUAL
+  btnMusica.addEventListener("click", alternarMusica);
 
+  // SINCRONIZACIÓN DEL BOTÓN
   musicaFondo.addEventListener(
     "play",
     actualizarEstadoMusica
@@ -320,65 +314,9 @@ if (musicaFondo && btnMusica) {
     actualizarEstadoMusica
   );
 
-  musicaFondo.addEventListener(
-    "ended",
-    actualizarEstadoMusica
-  );
-
   actualizarEstadoMusica();
-
-  // ==========================================
-  // INTENTO AUTOMÁTICO DESPUÉS DE 1.5 SEGUNDOS
-  // ==========================================
-
-  setTimeout(() => {
-
-    iniciarMusica();
-
-  }, 1500);
-
- 
-  // ==========================================
-  // INICIAR AL PRIMER TOQUE DEL USUARIO
-  // ==========================================
-
-  function iniciarConInteraccion(evento) {
-
-    // El botón musical tiene su propio control
-    if (evento.target.closest("#btn-musica")) {
-      return;
-    }
-
-    // Respetar si el usuario pausó la música
-    if (usuarioPauso) {
-      document.removeEventListener(
-        "pointerdown",
-        iniciarConInteraccion
-      );
-      return;
-    }
-
-    // No intentar reproducir si ya está sonando
-    if (!musicaFondo.paused) {
-      document.removeEventListener(
-        "pointerdown",
-        iniciarConInteraccion
-      );
-      return;
-    }
-
-    iniciarMusica();
-
-    document.removeEventListener(
-      "pointerdown",
-      iniciarConInteraccion
-    );
-
-  }
-
-  document.addEventListener(
-    "pointerdown",
-    iniciarConInteraccion
-  );
-
 }
+
+
+
+

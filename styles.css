@@ -1157,3 +1157,105 @@ footer span {
     font-size: 14px;
   }
 }
+
+
+
+/* =======================================
+   AJUSTE DE FOTOGRAFÍAS Y SECCIONES
+======================================= */
+
+/* FOTO PRINCIPAL */
+.photo-section {
+  padding: 55px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 75vh;
+}
+
+.photo-wrapper {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 12px;
+}
+
+.photo-wrapper img {
+  width: 100%;
+  height: clamp(320px, 55vh, 510px);
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: center 25%;
+}
+
+/* FOTO DRESS CODE */
+.dress-section {
+  padding: 75px 24px;
+}
+
+.dress-layout {
+  max-width: 950px;
+  gap: 55px;
+}
+
+.dress-photo {
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  padding: 12px;
+}
+
+.dress-photo img {
+  width: 100%;
+  height: clamp(320px, 55vh, 480px);
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: center 25%;
+}
+
+/* RESPONSIVE CELULARES */
+@media (max-width: 768px) {
+
+  .photo-section {
+    min-height: auto;
+    padding: 45px 35px;
+  }
+
+  .photo-wrapper {
+    max-width: 330px;
+  }
+
+  .photo-wrapper img {
+    height: 390px;
+  }
+
+  .dress-section {
+    padding: 60px 24px;
+  }
+
+  .dress-layout {
+    gap: 35px;
+  }
+
+  .dress-photo {
+    max-width: 320px;
+  }
+
+  .dress-photo img {
+    height: 370px;
+  }
+
+}
+
+/* PANTALLAS PEQUEÑAS */
+@media (max-width: 390px) {
+
+  .photo-wrapper img {
+    height: 340px;
+  }
+
+  .dress-photo img {
+    height: 330px;
+  }
+
+}
