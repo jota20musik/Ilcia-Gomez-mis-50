@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#626F4B">
+
+  <title>Mis 50 años | Cincuenta y Fabulosa</title>
+
+  <meta name="description"
+    content="Te invito a celebrar mis 50 años. Sábado 21 de noviembre de 2026.">
+
+  <!-- Tipografías elegantes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+  <main>
+
+    <!-- PORTADA -->
+    <section class="hero">
+      <div class="hero-content reveal">
+
+        <p class="eyebrow">ESTÁS CORDIALMENTE INVITADO A CELEBRAR</p>
+
+        <div class="ornament">✦ ───── ✦ ───── ✦</div>
+
+        <p class="intro-small">El cumpleaños de</p>
+
+        <h1 id="nombre-cumpleanera" class="nombre-elegante">
+          Ilcia Gomez
+        </h1>
+
+        <div class="age-container">
+          <span class="age-number">50</span>
+          <span class="age-label">AÑOS</span>
+        </div>
+
+        <h2 class="frase-cumpleanos">Cincuenta y Fabulosa</h2>
+
+        <p class="description">
+          50 años de vida, mil historias que contar
+          y una infinidad de momentos por celebrar.
+        </p>
+
+        <a href="#foto" class="scroll-indicator">
+          DESCUBRE MI INVITACIÓN
+          <span>↓</span>
+        </a>
+
+      </div>
+    </section>
+
+
+    <!-- FOTO PRINCIPAL -->
+    <section class="photo-section" id="foto">
+      <div class="photo-wrapper reveal">
+
+        <img
+          src="assets/foto-principal.jpg"
+          alt="Fotografía de la cumpleañera"
+          onerror="this.style.display='none'"
+        >
+
+        <div class="photo-badge">
+          50
+          <small>& fabulous</small>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- HAPPY BIRTHDAY / RECEPCIÓN -->
+    <section class="details section-padding" id="recepcion">
+
+      <div class="reveal">
+        <p class="happy-birthday">Happy Birthday</p>
+        <p class="eyebrow">UNA NOCHE INOLVIDABLE</p>
+
+        <h2 class="section-title titulo-celebracion">
+          Celebremos la vida
+        </h2>
+
+        <p class="description descripcion-celebracion">
+          Hay momentos que merecen celebrarse
+          con las personas que hacen nuestra vida especial.
+        </p>
+      </div>
+
+      <div class="detail-card reveal">
+
+        <div class="detail-decoration">✧</div>
+
+        <p class="detail-label">RECEPCIÓN</p>
+
+        <p class="time">
+          8:30 <span>p. m.</span>
+        </p>
+
+        <div class="divider-small"></div>
+
+        <p class="detail-label">LUGAR</p>
+
+        <h3 class="nombre-local">El Señorial</h3>
+
+        <p class="direccion-local">
+          Calle Gabriel Aguilar N.º 1272<br>
+          El Porvenir, La Libertad
+        </p>
+
+        <a
+          href="https://www.google.com/maps/search/?api=1&query=El%20Se%C3%B1orial%20Calle%20Gabriel%20Aguilar%201272%20El%20Porvenir%20Peru"
+          class="outline-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          VER MAPA ↗
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- FECHA DEL EVENTO -->
+    <section class="date-section section-padding" id="fecha">
+
+      <div class="reveal">
+
+        <p class="eyebrow">GUARDA UN LUGAR EN TU AGENDA</p>
+
+        <h2 class="section-title">Agenda esta fecha</h2>
+
+        <div class="calendar">
+
+          <p class="calendar-weekday">SÁBADO</p>
+
+          <p class="calendar-month">NOVIEMBRE</p>
+
+          <p class="calendar-day">21</p>
+
+          <p class="calendar-year">2026</p>
+
+        </div>
+
+        <p class="countdown-title">Solo faltan</p>
+
+        <div class="countdown" role="timer">
+
+          <div class="time-box">
+            <strong id="days">00</strong>
+            <span>DÍAS</span>
+          </div>
+
+          <span class="separator">:</span>
+
+          <div class="time-box">
+            <strong id="hours">00</strong>
+            <span>HORAS</span>
+          </div>
+
+          <span class="separator">:</span>
+
+          <div class="time-box">
+            <strong id="minutes">00</strong>
+            <span>MINUTOS</span>
+          </div>
+
+          <span class="separator">:</span>
+
+          <div class="time-box">
+            <strong id="seconds">00</strong>
+            <span>SEGUNDOS</span>
+          </div>
+
+        </div>
+
+        <p id="countdown-message" class="countdown-message" hidden>
+          ¡Hoy es el gran día! ✨
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- DRESS CODE -->
+    <section class="dress-section section-padding">
+
+      <div class="dress-layout">
+
+        <div class="dress-photo reveal">
+          <img
+            src="assets/foto-secundaria.jpg"
+            alt="Segunda fotografía de la cumpleañera"
+            onerror="this.style.display='none'"
+          >
+        </div>
+
+        <div class="dress-content reveal">
+
+          <p class="eyebrow">PREPÁRATE PARA BRILLAR</p>
+
+          <h2 class="section-title">Dress Code</h2>
+
+          <p class="dress-type">Elegante</p>
+
+          <div class="ornament">✦ ─ ✦</div>
+
+          <p class="dress-description">
+            Ven con tu mejor sonrisa y tus mejores galas.
+            ¡Vivamos juntos una noche llena de alegría,
+            música y recuerdos inolvidables!
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- MENSAJE Y CONFIRMACIÓN -->
+    <section class="rsvp-section section-padding" id="confirmacion">
+
+      <div class="rsvp-content reveal">
+
+        <p class="eyebrow">EL MEJOR REGALO ES TU COMPAÑÍA</p>
+
+        <h2 class="script-title">¡Te espero!</h2>
+
+        <p class="special-message">
+          En este día tan especial quiero rodearme
+          de las personas que han sido parte de mi historia.
+          Tu presencia hará que esta celebración
+          sea aún más hermosa.
+        </p>
+
+        <div class="ornament">✦ ───── ✦</div>
+
+       <h3 class="titulo-confirmacion">Confirmar asistencia</h3>
+
+        <p class="rsvp-description descripcion-confirmacion">
+          Tu presencia es muy importante para mí.
+          Por favor, confirma tu asistencia por WhatsApp.
+        </p>
+
+        <a
+          href="#"
+          id="whatsapp-button"
+          class="primary-btn boton-confirmacion"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          CONFIRMAR ASISTENCIA ↗
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Con cariño, en mis 50 años</p>
+    <span>✦</span>
+  </footer>
+
+</body>
+
+
+<!-- MÚSICA DE FONDO -->
+<audio
+  id="musica-fondo"
+  src="assets/audio.mp3"
+  preload="metadata"
+  loop>
+</audio>
+
+<!-- BOTÓN FLOTANTE DE MÚSICA -->
+<button
+  id="btn-musica"
+  class="music-button"
+  type="button"
+  aria-label="Reproducir música"
+  aria-pressed="false"
+  title="Reproducir música">
+
+  <svg
+    id="music-icon"
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.8"
+    stroke-linecap="round"
+    stroke-linejoin="round">
+
+    <path d="M9 18V5l12-2v13"/>
+    <circle cx="6" cy="18" r="3"/>
+    <circle cx="18" cy="16" r="3"/>
+
+  </svg>
+
+  <span class="music-status"></span>
+
+</button>
+
+</html>
