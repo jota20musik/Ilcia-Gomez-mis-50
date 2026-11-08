@@ -1079,3 +1079,81 @@ footer span {
     line-height: 1.85;
   }
 }
+
+
+/* =======================================
+   CALENDARIO ELEGANTE
+======================================= */
+
+.calendario-elegante {
+  width: min(100%, 300px);
+  margin: 45px auto;
+  padding: 32px 20px 36px;
+
+  border: 1px solid rgba(235, 231, 202, 0.55);
+  background: rgba(255, 255, 255, 0.035);
+
+  text-align: center;
+}
+
+/* DÍA DE LA SEMANA */
+.calendario-elegante .calendar-weekday {
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 5px;
+  color: #E4DDC5;
+  margin-bottom: 5px;
+}
+
+/* NÚMERO DEL DÍA */
+.calendario-elegante .calendar-day {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(105px, 18vw, 145px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -5px;
+  color: #FFFDF8;
+  margin: 0;
+}
+
+/* MES */
+.calendario-elegante .calendar-month {
+  font-family: "Playfair Display", serif;
+  font-size: 25px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  color: #E4DDC5;
+  margin-top: 3px;
+}
+
+/* AÑO */
+.calendario-elegante .calendar-year {
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 7px;
+  color: #D2C9A8;
+  margin-top: 15px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .calendario-elegante {
+    width: 270px;
+    padding: 28px 15px 32px;
+  }
+
+  .calendario-elegante .calendar-day {
+    font-size: 115px;
+  }
+
+  .calendario-elegante .calendar-month {
+    font-size: 22px;
+    letter-spacing: 3px;
+  }
+
+  .calendario-elegante .calendar-year {
+    font-size: 14px;
+  }
+}

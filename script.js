@@ -186,87 +186,199 @@ if ("IntersectionObserver" in window) {
 }
 
 
-// ==========================================
-// REPRODUCTOR DE MÚSICA
-// ==========================================
 
-const musicaFondo = document.getElementById(
-  "musica-fondo"
-);
+/* ==========================================
+   REPRODUCTOR DE MÚSICA - VERSIÓN CORREGIDA
+========================================== */
 
-const btnMusica = document.getElementById(
-  "btn-musica"
-);
+const musicaFondo = document.getElementById("musica-fondo");
+const btnMusica = document.getElementById("btn-musica");
 
-// Volumen inicial: 50 %
-musicaFondo.volume = 0.5;
+if (musicaFondo && btnMusica) {
 
-// Actualizar apariencia del botón
-function actualizarEstadoMusica() {
+  // CONFIGURACIÓN
+  musicaFondo.volume = 0.5;
+  musicaFondo.loop = true;
 
-  const reproduciendo = !musicaFondo.paused;
+  let usuarioPauso = false;
+  let reproduccionSolicitada = false;
 
-  btnMusica.classList.toggle(
-    "playing",
-    reproduciendo
-  );
+  // ==========================================
+  // ACTUALIZAR BOTÓN MUSICAL
+  // ==========================================
 
-  btnMusica.setAttribute(
-    "aria-pressed",
-    String(reproduciendo)
-  );
+  function actualizarEstadoMusica() {
 
-  btnMusica.setAttribute(
-    "aria-label",
-    reproduciendo ? "Pausar música" : "Reproducir música"
-  );
+    const reproduciendo = !musicaFondo.paused;
 
-  btnMusica.title = reproduciendo
-    ? "Pausar música"
-    : "Reproducir música";
-
-}
-
-// Reproducir o pausar manualmente
-async function alternarMusica() {
-
-  if (!musicaFondo.paused) {
-    musicaFondo.pause();
-    return;
-  }
-
-  try {
-    await musicaFondo.play();
-  } catch (error) {
-    console.warn(
-      "No se pudo reproducir la música:",
-      error
+    btnMusica.classList.toggle(
+      "playing",
+      reproduciendo
     );
+
+    btnMusica.setAttribute(
+      "aria-pressed",
+      String(reproduciendo)
+    );
+
+    btnMusica.setAttribute(
+      "aria-label",
+      reproduciendo
+        ? "Pausar música"
+        : "Reproducir música"
+    );
+
+    btnMusica.title = reproduciendo
+      ? "Pausar música"
+      : "Reproducir música";
+
   }
 
+  // ==========================================
+  // INICIAR MÚSICA
+  // ==========================================
+
+  async function iniciarMusica() {
+
+    if (
+      usuarioPauso ||
+      !musicaFondo.paused ||
+      reproduccionSolicitada
+    ) {
+      return;
+    }
+
+    reproduccionSolicitada = true;
+
+    try {
+
+      await musicaFondo.play();
+
+    } catch (error) {
+
+      console.log(
+        "La reproducción requiere interacción del usuario."
+      );
+
+    } finally {
+
+      reproduccionSolicitada = false;
+
+    }
+
+  }
+
+  // ==========================================
+  // CONTROL MANUAL
+  // ==========================================
+
+  async function alternarMusica() {
+
+    if (!musicaFondo.paused) {
+
+      usuarioPauso = true;
+
+      musicaFondo.pause();
+
+    } else {
+
+      usuarioPauso = false;
+
+      try {
+
+        await musicaFondo.play();
+
+      } catch (error) {
+
+        console.warn(
+          "No se pudo reproducir el audio:",
+          error
+        );
+
+      }
+
+    }
+
+  }
+
+  btnMusica.addEventListener(
+    "click",
+    alternarMusica
+  );
+
+  // ==========================================
+  // SINCRONIZACIÓN DEL BOTÓN
+  // ==========================================
+
+  musicaFondo.addEventListener(
+    "play",
+    actualizarEstadoMusica
+  );
+
+  musicaFondo.addEventListener(
+    "pause",
+    actualizarEstadoMusica
+  );
+
+  musicaFondo.addEventListener(
+    "ended",
+    actualizarEstadoMusica
+  );
+
+  actualizarEstadoMusica();
+
+  // ==========================================
+  // INTENTO AUTOMÁTICO DESPUÉS DE 1.5 SEGUNDOS
+  // ==========================================
+
+  setTimeout(() => {
+
+    iniciarMusica();
+
+  }, 1500);
+
+ 
+  // ==========================================
+  // INICIAR AL PRIMER TOQUE DEL USUARIO
+  // ==========================================
+
+  function iniciarConInteraccion(evento) {
+
+    // El botón musical tiene su propio control
+    if (evento.target.closest("#btn-musica")) {
+      return;
+    }
+
+    // Respetar si el usuario pausó la música
+    if (usuarioPauso) {
+      document.removeEventListener(
+        "pointerdown",
+        iniciarConInteraccion
+      );
+      return;
+    }
+
+    // No intentar reproducir si ya está sonando
+    if (!musicaFondo.paused) {
+      document.removeEventListener(
+        "pointerdown",
+        iniciarConInteraccion
+      );
+      return;
+    }
+
+    iniciarMusica();
+
+    document.removeEventListener(
+      "pointerdown",
+      iniciarConInteraccion
+    );
+
+  }
+
+  document.addEventListener(
+    "pointerdown",
+    iniciarConInteraccion
+  );
+
 }
-
-// Clic en el botón flotante
-btnMusica.addEventListener(
-  "click",
-  alternarMusica
-);
-
-// Mantener sincronizado el botón
-musicaFondo.addEventListener(
-  "play",
-  actualizarEstadoMusica
-);
-
-musicaFondo.addEventListener(
-  "pause",
-  actualizarEstadoMusica
-);
-
-musicaFondo.addEventListener(
-  "ended",
-  actualizarEstadoMusica
-);
-
-actualizarEstadoMusica();
-
